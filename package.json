@@ -1,0 +1,23 @@
+{
+  "name": "application-crud-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "backend": "node server/server.js",
+    "frontend": "cd client && npm run dev",
+    "setup": "npm i && cd client && npm i",
+    "start": "concurrently --kill-others-on-fail \"npm run backend\" \"npm run frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.2.0",
+    "sequelize": "^6.29.3"
+  }
+}

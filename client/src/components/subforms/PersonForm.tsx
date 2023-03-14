@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { TPerson } from '../../types';
+import { Field } from '../Field';
 
 const getAge = (dob: Date) => {
   const diff = Date.now() - dob.getTime();
@@ -11,22 +12,14 @@ const getAge = (dob: Date) => {
 };
 
 
-const PersonForm = () => {
-  // TODO: make this a modal, or only have it show up when you add a new person
-
-  const { register, handleSubmit, reset, formState } = useForm<TPerson>();
+const PersonForm = ({ person, isclient, savePerson }: { person?: Partial<TPerson>, isclient?: boolean, savePerson: (p: TPerson) => void }) => {
+  const { register, handleSubmit, formState } = useForm<TPerson>({ defaultValues: person });
   const { errors } = formState;
 
 
   // create and save a new person
   const handleAddPerson = (person: TPerson) => {
-    const requestOpts = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(person)
-    }
-    fetch('/api/people', requestOpts).then(resp => resp.json()).then(data => console.log(data))
-    reset();
+    savePerson(person);
   };
 
 
@@ -47,22 +40,18 @@ const PersonForm = () => {
 
   return (
     <form onSubmit={handleSubmit(handleAddPerson)} >
-      <h2>Add Person</h2>
-      <div>
-        <label>First Name</label>
+      <h2>Person</h2>
+      <Field label="First Name" error={errors?.first}>
         <input name="first" {...register('first', regOpts.first)} />
-        {errors?.first && errors.first.message}
-      </div>
-      <div>
-        <label>Last Name</label>
+      </Field>
+
+      <Field label="Last Name" error={errors?.last}>
         <input name="last" {...register('last', regOpts.last)} />
-        {errors?.last && errors.last.message}
-      </div>
-      <div>
-        <label>Date of Birth</label>
+      </Field>
+
+      <Field label="Date of Birth" error={errors?.birth}>
         <input type="date" name="birth" {...register('birth', regOpts.birth)} />
-        {errors?.birth && errors.birth.message}
-      </div>
+      </Field>
       <button>Save Person</button>
     </form >
   );

@@ -19,6 +19,16 @@ const create = async (aParams) => {
   await address.save();
 };
 
+const getOrCreate = async (aParams) => {
+  let address = await db.Address.findOne({ where: { ...aParams } });
+  if (address) {
+    return address;
+  }
+  address = new db.Address(aParams);
+  await address.save();
+  return address;
+}
+
 const _delete = async (id) => {
   const address = await getAddress(id);
   await address.destroy();
@@ -29,5 +39,6 @@ module.exports = {
   getAll,
   getById,
   create,
+  getOrCreate,
   delete: _delete
 };

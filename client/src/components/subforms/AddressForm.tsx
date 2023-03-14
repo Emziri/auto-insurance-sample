@@ -1,22 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { TAddress } from '../../types';
+import { Field } from '../Field';
 
 
-const AddressForm = () => {
-  // TODO: make this a modal, or only have it show up when you add a new person
-
-  const { register, handleSubmit, reset, formState } = useForm<TAddress>();
+const AddressForm = ({ address, saveAddress }: { address?: TAddress, saveAddress: (a: TAddress) => void }) => {
+  const { register, handleSubmit, formState } = useForm({ defaultValues: address });
   const { errors } = formState;
 
   // Create and save a new address
-  const handleAddAddress = (data: TAddress) => {
-    const requestOpts = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, street2: data.street2 ? data.street2 : undefined })
-    }
-    fetch('/api/addresses', requestOpts).then(resp => resp.json()).then(data => console.log(data))
-    reset();
+  const handleSave = (data: TAddress) => {
+    saveAddress(data);
   };
 
 
@@ -37,33 +30,23 @@ const AddressForm = () => {
   // TODO: limiting input lengths
 
   return (
-    <form onSubmit={handleSubmit(handleAddAddress)} >
-      <h2>Add Address</h2>
-      <div>
-        <label>Street Address</label>
+    <form onSubmit={handleSubmit(handleSave)}>
+      <h2>Address</h2>
+      <Field label="Street Addess" error={errors?.street}>
         <input name="street" {...register('street', regOpts.street)} />
-        {errors?.street && errors.street.message}
-      </div>
-      <div>
-        <label>Suite/Apt (Optional)</label>
+      </Field>
+      <Field label="Suite/Apt (Optional)" error={errors?.street2}>
         <input name="street2" {...register('street2')} />
-        {errors?.street2 && errors.street2.message}
-      </div>
-      <div>
-        <label>City</label>
+      </Field>
+      <Field label="City" error={errors?.city}>
         <input name="city" {...register('city', regOpts.city)} />
-        {errors?.city && errors.city.message}
-      </div>
-      <div>
-        <label>State</label>
+      </Field>
+      <Field label="State" error={errors?.state}>
         <input name="state" {...register('state', regOpts.state)} />
-        {errors?.state && errors.state.message}
-      </div>
-      <div>
-        <label>ZIP Code</label>
+      </Field>
+      <Field label="ZIP Code" error={errors?.zip}>
         <input name="zip" {...register('zip', regOpts.zip)} />
-        {errors?.zip && errors.zip.message}
-      </div>
+      </Field>
       <button>Save Address</button>
     </form >
   );

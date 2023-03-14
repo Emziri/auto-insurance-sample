@@ -24,12 +24,11 @@ function getById(req, res, next) {
 
 function create(req, res, next) {
   applicationService.create(req.body)
-    .then((appl) => res.json({ applicationUrl: `http://localhost/api/applications/${appl.dataValues.id}` }))
+    .then((appl) => res.json({ applicationUrl: `http://localhost:3000/applications/${appl.dataValues.id}` }))
     .catch(next);
 }
 
 function update(req, res, next) {
-  console.log('request body', req.body);
   applicationService.update(req.params.id, req.body)
     .then(() => res.json({ message: 'application updated' }))
     .catch(next);

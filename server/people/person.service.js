@@ -29,6 +29,17 @@ const create = async (pParams) => {
   await person.save();
 };
 
+const getOrCreate = async (pParams) => {
+  let person = await db.Person.findOne({ where: { ...pParams } })
+  if (person) {
+    return person;
+  }
+
+  person = new db.Person(pParams);
+  await person.save();
+  return person;
+}
+
 const _delete = async (id) => {
   const person = await getPerson(id);
   await person.destroy();
@@ -40,5 +51,6 @@ module.exports = {
   getById,
   getByIds,
   create,
+  getOrCreate,
   delete: _delete
 };

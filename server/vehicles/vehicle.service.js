@@ -24,13 +24,15 @@ const getByIds = async (ids) => {
   return vehicles;
 };
 
-const create = async (vParams) => {
-  if (await db.Vehicle.findOne({ where: { vin: vParams.vin } })) {
-    throw 'Error -- vehicle with given VIN already exists';
+const getOrCreate = async (vParams) => {
+  let vehicle = await db.Vehicle.findOne({ where: { ...vParams } });
+  if (vehicle) {
+    return vehicle;
   }
 
-  const vehicle = new db.Vehicle(vParams);
+  vehicle = new db.Vehicle(vParams);
   await vehicle.save();
+  return vehicle
 };
 
 const _delete = async (id) => {
@@ -43,6 +45,6 @@ module.exports = {
   getAll,
   getById,
   getByIds,
-  create,
+  getOrCreate,
   delete: _delete
 };

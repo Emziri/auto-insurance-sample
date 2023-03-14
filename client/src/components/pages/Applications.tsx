@@ -13,7 +13,7 @@ const Applications = () => {
 
 
   return (
-    <div className="container">
+    <div>
       <h1>Applications</h1>
       <ul>
         {applications.map((application) => <li key={application.id}><LinkButton to={`/applications/${application.id}`}>Application {application.id}</LinkButton></li>)}

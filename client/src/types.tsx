@@ -28,7 +28,7 @@ export type TVehicle = {
 type TApplicant = Partial<Omit<TPerson, "relation">>;
 
 export type TApplication = {
-  id: number,
+  id?: number,
   first?: string,
   last?: string,
   birth?: Date,

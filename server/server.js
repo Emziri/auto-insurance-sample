@@ -1,5 +1,5 @@
 const express = require("express");
-const PORT = process.env.PORT || 8080; // TODO README: port locations
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 

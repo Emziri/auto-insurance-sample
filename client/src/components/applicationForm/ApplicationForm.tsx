@@ -63,7 +63,7 @@ const ApplicationForm = () => {
     fetch(`/api/applications/${applicationId}/validate`, requestOpts)
       .then(resp => resp.json())
       .then(data => {
-        setVMessage(data.message);
+        setVMessage(data.message.toString());
       });
 
     setShowValidation(true);

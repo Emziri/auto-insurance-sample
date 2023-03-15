@@ -13,9 +13,10 @@ const PersonalInfoSection = ({ person, save }: TPersonalInfoSectionProps) => {
     save(person);
   };
 
+  const hasPerson = person && (person.first || person.last || person.birth);
   return (<section>
     <h2>Personal Information</h2>
-    <PersonForm person={person} savePerson={saveClientInfo} isclient edit={!person} />
+    <PersonForm person={person} savePerson={saveClientInfo} isclient edit={!hasPerson} />
   </section>);
 };
 

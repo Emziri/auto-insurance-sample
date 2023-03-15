@@ -8,7 +8,7 @@ const config = {
     "host": "localhost",
     "port": 3306, //the port your mysql server listens to
     "user": "root", //your mysql account name
-    "password": "MyPotatoBase01!", //your mysql password
+    "password": "123abc!", //your mysql password
     "database": "node-app-challenge"
   }
 };

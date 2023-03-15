@@ -153,7 +153,7 @@ const validate = async (id) => {
 
   //additional people are not mandatory for quote
   if (errors.length) throw errors;
-  return { message: `Quote: $${Math.floor(Math.random() * (5000 - 500) + 500)}.00y` };
+  return { message: `Quote: $${Math.floor(Math.random() * (5000 - 500) + 500)}.00` };
 };
 
 const _delete = async (id) => {

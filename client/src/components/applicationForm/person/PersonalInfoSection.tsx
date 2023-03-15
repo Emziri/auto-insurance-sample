@@ -13,10 +13,10 @@ const PersonalInfoSection = ({ person, save }: TPersonalInfoSectionProps) => {
     save(person);
   };
 
-  return (<fieldset>
+  return (<section>
     <h2>Personal Information</h2>
-    <PersonForm person={person} savePerson={saveClientInfo} isclient />
-  </fieldset>);
+    <PersonForm person={person} savePerson={saveClientInfo} isclient edit={!person} />
+  </section>);
 };
 
 export default PersonalInfoSection;

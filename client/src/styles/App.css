@@ -53,3 +53,20 @@ h1 {
   width: 35%;
   border-radius: 8px;
 }
+
+.formBox {
+  display: flex;
+  padding: 0.5em;
+  align-items: flex-end;
+}
+
+.editButton {
+  margin-left: 1em;
+}
+
+section {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 15px;
+}

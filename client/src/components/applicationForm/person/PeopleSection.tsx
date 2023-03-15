@@ -12,7 +12,7 @@ const PeopleSection = ({ people, save }: TPeopleSectionProps) => {
   const savePerson = (person: TPerson, personNo?: number) => {
     const updatedPeople = [...people];
 
-    if (!personNo) {
+    if (personNo === undefined) {
       updatedPeople.push(person);
     }
     else {
@@ -24,13 +24,13 @@ const PeopleSection = ({ people, save }: TPeopleSectionProps) => {
 
 
   return (
-    <fieldset>
+    <section>
       <h2>Additional People</h2>
       {people.map((person, pNo) =>
         <PersonForm key={pNo + person.first} person={person} pNo={pNo} savePerson={savePerson} />
       )}
-      <PersonForm key={'newPer'} savePerson={savePerson} />
-    </fieldset>);
+      <PersonForm key={'newPer'} savePerson={savePerson} edit />
+    </section>);
 };
 
 export default PeopleSection;

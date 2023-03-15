@@ -2,12 +2,14 @@ const express = require("express");
 const addressService = require("./address.service");
 const router = express.Router();
 
-router.get('/', getAll);
-router.get('/:id', getById);
-router.post('/', create);
-router.delete('/:id', _delete);
+// APIs for the address model, used for testing. 
 
-module.exports = router;
+// router.get('/', getAll);
+// router.get('/:id', getById);
+// router.post('/', create);
+// router.delete('/:id', _delete);
+
+// module.exports = router;
 
 function getAll(req, res, next) {
   addressService.getAll()
@@ -32,7 +34,3 @@ function _delete(req, res, next) {
     .then(() => res.json({ message: 'address deleted' }))
     .catch(next);
 }
-
-// schema functions
-
-//TODO: validation steps. see examples

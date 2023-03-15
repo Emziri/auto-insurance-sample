@@ -13,10 +13,10 @@ const AddressSection = ({ address, save }: TAddressSectionProps) => {
   };
 
   return (
-    <fieldset>
+    <section>
       <h2>Address</h2>
       <AddressForm address={address} saveAddress={saveAddress} />
-    </fieldset>);
+    </section>);
 };
 
 export default AddressSection;

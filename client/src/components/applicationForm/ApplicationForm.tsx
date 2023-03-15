@@ -23,7 +23,6 @@ const ApplicationForm = () => {
     }
 
     fetch(`/api/applications/${applicationId}`).then((res) => res.json()).then((data) => {
-      console.log(data, 'data');
       setApplicationData(data);
       setLoading(false);
     });
@@ -46,13 +45,12 @@ const ApplicationForm = () => {
         });
     }
     else {
-      console.log('saving', applicationData);
       const requestOpts = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(applicationData)
       };
-      fetch(`/api/applications/${applicationId}`, requestOpts).then(resp => resp.json()).then(data => console.log(data, 'saved!!!'));
+      fetch(`/api/applications/${applicationId}`, requestOpts).then(resp => resp.json()).then(data => { console.log(data, 'saved'); alert('application saved!'); });
     }
   }, [applicationData]);
 
@@ -78,22 +76,19 @@ const ApplicationForm = () => {
   const client: Partial<TPerson> | undefined = Object.keys(applicationData).length ? { first: applicationData.first, last: applicationData.last, birth: applicationData.birth } : undefined;
 
   return (
-    <div>
+    <main>
       <h1>{applicationId ? `Application ${applicationId}` : `New Application`}</h1>
-      <section>
-        {loading ? (<h2>Loading form....</h2>) : (
-          <div>
-            <PersonalInfoSection person={client} save={onSaveSection} />
-            <AddressSection address={applicationData.address} save={onSaveSection} />
-            <VehicleSection vehicles={applicationData.vehicles ?? []} save={onSaveSection} />
-            <PeopleSection people={applicationData.people ?? []} save={onSaveSection} />
-            <button onClick={handleSave}>save </button>
-            <button onClick={onEvaluate}>get quote</button>
-            <ValidationModal message={vMessage} show={showValidation} close={() => setShowValidation(false)} />
-          </div>)}
-      </section>
-
-    </div>
+      {loading ? (<h2>Loading form....</h2>) : (
+        <div>
+          <PersonalInfoSection person={client} save={onSaveSection} />
+          <AddressSection address={applicationData.address} save={onSaveSection} />
+          <VehicleSection vehicles={applicationData.vehicles ?? []} save={onSaveSection} />
+          <PeopleSection people={applicationData.people ?? []} save={onSaveSection} />
+          <button onClick={handleSave}>save </button>
+          <button onClick={onEvaluate}>get quote</button>
+          <ValidationModal message={vMessage} show={showValidation} close={() => setShowValidation(false)} />
+        </div>)}
+    </main>
   );
 
 };

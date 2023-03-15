@@ -10,13 +10,15 @@ const Applications = () => {
   }, []);
 
   return (
-    <div>
+    <main>
       <h1>Applications</h1>
-      <ul>
-        {applications.map((application) => <li key={application.id}><LinkButton to={`/applications/${application.id}`}>Application {application.id}</LinkButton></li>)}
-      </ul>
-      <LinkButton to={'/apply'}>New Application</LinkButton>
-    </div>
+      <section>
+        <ul>
+          {applications.map((application) => <li key={application.id}><LinkButton to={`/applications/${application.id}`}>Application {application.id}</LinkButton></li>)}
+        </ul>
+        <LinkButton to={'/apply'}>New Application</LinkButton>
+      </section>
+    </main>
   );
 };
 

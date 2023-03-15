@@ -1,5 +1,7 @@
 const db = require('../db');
 
+// service for person model CRUD
+
 const getAll = async () => {
   return await db.Person.findAll();
 };
@@ -8,10 +10,6 @@ const getPerson = async (id) => {
   const person = await db.Person.findByPk(id);
   if (!person) throw 'Person not found';
   return person;
-};
-
-const getById = async (id) => {
-  return await getPerson(id);
 };
 
 const getByIds = async (ids) => {
@@ -48,7 +46,7 @@ const _delete = async (id) => {
 
 module.exports = {
   getAll,
-  getById,
+  getPerson,
   getByIds,
   create,
   getOrCreate,

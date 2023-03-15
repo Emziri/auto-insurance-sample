@@ -11,7 +11,7 @@ const VehicleSection = ({ vehicles, save }: TVehicleSectionProps) => {
   const saveVehicle = (vehicle: TVehicle, vehicleNo?: number) => {
     const updatedVehicles = [...vehicles];
 
-    if (!vehicleNo) {
+    if (vehicleNo === undefined) {
       if (updatedVehicles.length === 3) return;
       updatedVehicles.push(vehicle);
     } else {
@@ -23,13 +23,13 @@ const VehicleSection = ({ vehicles, save }: TVehicleSectionProps) => {
   };
 
   return (
-    <fieldset>
+    <section>
       <h2>Vehicles</h2>
       {vehicles.map((vehicle, vNo) =>
         <VehicleForm key={vNo + vehicle.vin} vehicle={vehicle} vNo={vNo} saveVehicle={saveVehicle} />
       )}
       {vehicles?.length < 3 && <VehicleForm key={'newVeh'} saveVehicle={saveVehicle} />}
-    </fieldset>);
+    </section>);
 };
 
 export default VehicleSection;

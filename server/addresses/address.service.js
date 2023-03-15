@@ -1,5 +1,7 @@
 const db = require('../db');
 
+// service for address CRUD
+
 const getAll = async () => {
   return await db.Address.findAll();
 };
@@ -8,10 +10,6 @@ const getAddress = async (id) => {
   const address = await db.Address.findByPk(id);
   if (!address) throw 'Address not found';
   return address;
-};
-
-const getById = async (id) => {
-  return await getAddress(id);
 };
 
 const create = async (aParams) => {
@@ -37,7 +35,7 @@ const _delete = async (id) => {
 
 module.exports = {
   getAll,
-  getById,
+  getById: getAddress,
   create,
   getOrCreate,
   delete: _delete

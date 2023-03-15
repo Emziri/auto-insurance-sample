@@ -12,3 +12,4 @@ npm run start
 ```
 
 This should auto-build your db as well as start all the neccessary servers for you to see the app at localhost:3000
+The configured ports are 3306 for the db, 8080 for the backend, and 3000 for the frontend

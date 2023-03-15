@@ -7,7 +7,7 @@ function model(sequelize) {
     street2: { type: DataTypes.STRING },
     city: { type: DataTypes.STRING, allowNull: false },
     state: { type: DataTypes.STRING, allowNull: false },
-    zip: { type: DataTypes.STRING, allowNull: false },
+    zip: { type: DataTypes.STRING, allowNull: false, validate: { isNumeric: true, len: [5, 9] } },
   };
 
 

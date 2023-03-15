@@ -4,12 +4,10 @@ const { DataTypes } = require('sequelize');
 function model(sequelize) {
   const attributes = {
     vin: { type: DataTypes.STRING, allowNull: false },
-    year: { type: 'YEAR(4)', allowNull: false },
+    year: { type: 'YEAR(4)', allowNull: false, validate: { isInt: true, min: 1985, max: new Date().getFullYear() + 1 } },
     make: { type: DataTypes.STRING, allowNull: false },
     model: { type: DataTypes.STRING, allowNull: false }
   };
-
-  //TODO validate year is in range
 
   return sequelize.define('Vehicle', attributes, { timestamps: false });
 }

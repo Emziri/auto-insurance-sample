@@ -26,7 +26,7 @@ const AddressForm = ({ address, saveAddress }: TAddressFormProps) => {
     state: { required: "State required" },
     zip: {
       required: "ZIP Code required", pattern: {
-        value: /(^\d{5}$)|(^\d{5}-\d{4}$)/,
+        value: /(^\d{5}$)|(^\d{9}$)/,
         message: 'must be valid zipcode'
       }
     }

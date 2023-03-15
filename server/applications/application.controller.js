@@ -15,28 +15,28 @@ module.exports = router;
 function getAll(req, res, next) {
   applicationService.getAll()
     .then(applications => res.json(applications))
-    .catch(next);
+    .catch(err => { res.json({ error: err }); next(err) });
 }
 
 // endpoint to get an existing application
 function getById(req, res, next) {
   applicationService.getById(req.params.id)
     .then(application => res.json(application))
-    .catch(next);
+    .catch(err => { res.json({ error: err }); next(err) });
 }
 
 //endpoint to create new applicaiton
 function create(req, res, next) {
   applicationService.create(req.body)
     .then((appl) => res.json({ applicationUrl: `http://localhost:3000/applications/${appl.dataValues.id}` }))
-    .catch(next);
+    .catch(err => { res.json({ error: err }); next(err) });
 }
 
 // endpoint to update existing application
 function update(req, res, next) {
   applicationService.update(req.params.id, req.body)
     .then(() => res.json({ message: 'application updated' }))
-    .catch(next);
+    .catch(err => { res.json({ error: err }); next(err) });
 }
 
 function validate(req, res, next) {
@@ -48,9 +48,5 @@ function validate(req, res, next) {
 function _delete(req, res, next) {
   applicationService.delete(req.params.id)
     .then(() => res.json({ message: 'application deleted' }))
-    .catch(next);
+    .catch(err => { res.json({ error: err }); next(err) });
 }
-
-// schema functions
-
-//TODO: validation steps. see examples

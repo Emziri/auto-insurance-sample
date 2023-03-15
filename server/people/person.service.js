@@ -23,8 +23,12 @@ const getByIds = async (ids) => {
 };
 
 const create = async (pParams) => {
+  console.log('creating', pParams);
   const person = new db.Person(pParams);
   await person.save();
+
+  console.log(person);
+  return person;
 };
 
 const getOrCreate = async (pParams) => {

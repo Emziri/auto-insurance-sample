@@ -22,7 +22,7 @@ async function initialize() {
   await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
   // connect to db
-  const sequelize = new Sequelize(database, user, password, { dialect: 'mysql', logging: true });
+  const sequelize = new Sequelize(database, user, password, { dialect: 'mysql', logging: false });
 
   // init models and add to db object
   db.Vehicle = require('./vehicles/vehicle.model')(sequelize);

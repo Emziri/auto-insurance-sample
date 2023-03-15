@@ -42,15 +42,14 @@ const getById = async (id) => {
 };
 
 const create = async (aParams) => {
-
   const address = aParams.address
   if (address) {
     const addr = await getOrCreateAddress(address);
     aParams.addressId = addr.dataValues.id;
+  } else if (aParams.addressId) {
+    const addr = await db.Address.findOne({ where: { id: aParams.addressId } });
+    if (!addr) throw "passed address id does not exist"
   }
-
-  // TODO verify if you pass addressId, it exists
-  // some sort of validation step to throw bad request???
 
   const application = new db.Application(aParams);
   await application.save();
@@ -75,6 +74,9 @@ const update = async (id, aParams) => {
   if (address) {
     const addr = await getOrCreateAddress(address);
     aParams.addressId = addr.dataValues.id;
+  } else if (aParams.addressId) {
+    const addr = await db.Address.findOne({ where: { id: aParams.addressId } });
+    if (!addr) throw "passed address id does not exist"
   }
 
   const vehicles = aParams.vehicles
@@ -112,7 +114,10 @@ const setPeople = async (application, people) => {
 
 const validate = async (id) => {
   console.log('validated');
-  return true;
+  const valid = true
+  //TODO actual validation
+  if (!valid) throw "this is an error";
+  return { message: `Quote: ${Math.floor(Math.random() * (5000 - 500) + 500)}` };
 }
 
 const _delete = async (id) => {

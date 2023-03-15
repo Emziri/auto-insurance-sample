@@ -27,8 +27,7 @@ const getByIds = async (ids) => {
   return vehicles;
 };
 
-//TODO params types typescript
-// TODO returns types
+// TODO remove doc comments
 
 /** get vehicle if it exists in db, else create one
  * @param vParams

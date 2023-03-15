@@ -1,20 +1,20 @@
 import { useForm } from 'react-hook-form';
-import { TVehicle } from '../../types';
-import { Field } from '../Field';
+import { TVehicle } from '../../../types';
+import { Field } from '../../Field';
 import React from 'react';
 
-type TVehicleForm = {
+type TVehicleFormProps = {
   vehicle?: TVehicle,
   vNo?: number,
   saveVehicle: (v: TVehicle, vNo?: number) => void
 }
 
-const VehicleForm = ({ vehicle, vNo, saveVehicle }: TVehicleForm) => {
+const VehicleForm = ({ vehicle, vNo, saveVehicle }: TVehicleFormProps) => {
   const { register, handleSubmit, reset, formState } = useForm<TVehicle>({ defaultValues: vehicle });
   const { errors } = formState;
 
-  // Create and save a new vehicle
-  const handleAddVehicle = (vehicle: TVehicle) => {
+  const handleSave = (vehicle: TVehicle) => {
+    // pNo indicates this was an existing person on the application
     saveVehicle(vehicle, vNo);
     if (!vNo) reset();
   };
@@ -40,7 +40,7 @@ const VehicleForm = ({ vehicle, vNo, saveVehicle }: TVehicleForm) => {
 
 
   return (
-    <form onSubmit={handleSubmit(handleAddVehicle)} >
+    <form onSubmit={handleSubmit(handleSave)} >
       <Field label="VIN" error={errors?.vin}>
         <input maxLength={17} {...register('vin', regOpts.vin)} />
       </Field>

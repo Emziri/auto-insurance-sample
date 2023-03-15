@@ -1,18 +1,20 @@
 import { useForm } from 'react-hook-form';
-import { TAddress } from '../../types';
-import { Field } from '../Field';
+import { TAddress } from '../../../types';
+import { Field } from '../../Field';
 import React from 'react';
 
+type TAddressFormProps = {
+  address?: TAddress,
+  saveAddress: (a: TAddress) => void
+}
 
-const AddressForm = ({ address, saveAddress }: { address?: TAddress, saveAddress: (a: TAddress) => void }) => {
+const AddressForm = ({ address, saveAddress }: TAddressFormProps) => {
   const { register, handleSubmit, formState } = useForm({ defaultValues: address });
   const { errors } = formState;
 
-  // Create and save a new address
   const handleSave = (data: TAddress) => {
     saveAddress(data);
   };
-
 
   // form validation
   const regOpts = {
@@ -26,8 +28,6 @@ const AddressForm = ({ address, saveAddress }: { address?: TAddress, saveAddress
       }
     }
   };
-
-  // TODO: make state a select
 
   return (
     <form onSubmit={handleSubmit(handleSave)}>

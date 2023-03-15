@@ -8,8 +8,6 @@ export type TAddress = {
   zip: string,
 }
 
-//TODO: state as a specific set of 2 char options
-
 export const RelationTypes = ["Spouse", "Parent", "Sibling", "Friend", "Other"] as const;
 export type TRelation = typeof RelationTypes[number];
 

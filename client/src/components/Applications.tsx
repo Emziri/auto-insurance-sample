@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { TApplication } from '../../types';
-import LinkButton from '../LinkButton';
+import { TApplication } from '../types';
+import LinkButton from './LinkButton';
 
 const Applications = () => {
-
   const [applications, setApplications] = useState<TApplication[]>([]);
 
   useEffect(() => {
     fetch("/api/applications/").then((resp) => resp.json()).then((data) => setApplications(data));
   }, []);
-
 
   return (
     <div>

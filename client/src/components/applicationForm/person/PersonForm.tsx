@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { RelationTypes, TPerson } from '../../types';
-import { Field } from '../Field';
+import { RelationTypes, TPerson } from '../../../types';
+import { Field } from '../../Field';
 import React from 'react';
 
 const getAge = (dob: Date) => {
@@ -12,22 +12,21 @@ const getAge = (dob: Date) => {
   return age;
 };
 
-type TPersonForm = {
+type TPersonFormProps = {
   person?: Partial<TPerson>,
   pNo?: number,
   isclient?: boolean,
   savePerson: (p: TPerson, pNo?: number) => void
 }
 
-const PersonForm = ({ person, pNo, isclient, savePerson }: TPersonForm) => {
+const PersonForm = ({ person, pNo, isclient, savePerson }: TPersonFormProps) => {
   const { register, handleSubmit, reset, formState } = useForm<TPerson>({ defaultValues: person });
   const { errors } = formState;
 
-  // create and save a new person
-  const handleAddPerson = (person: TPerson) => {
-    //Pno indicates this was an existing person on the application
+  const handleSave = (person: TPerson) => {
+    // pNo indicates this was an existing person on the application
     savePerson(person, pNo);
-    if (!pNo) reset();
+    if (!pNo && !isclient) reset();
   };
 
 
@@ -50,7 +49,7 @@ const PersonForm = ({ person, pNo, isclient, savePerson }: TPersonForm) => {
 
 
   return (
-    <form onSubmit={handleSubmit(handleAddPerson)} >
+    <form onSubmit={handleSubmit(handleSave)} >
       <Field label="First Name" error={errors?.first}>
         <input maxLength={250} {...register('first', regOpts.first)} />
       </Field>

@@ -36,4 +36,3 @@ function _delete(req, res, next) {
 // schema functions
 
 //TODO: validation steps. see examples
-//TODO: send person as response when person created???

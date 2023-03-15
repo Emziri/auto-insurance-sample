@@ -36,4 +36,3 @@ function _delete(req, res, next) {
 // schema functions
 
 //TODO: validation steps. see examples
-//TODO: send address as response when address created???

@@ -1,22 +1,22 @@
 import { useForm } from 'react-hook-form';
 import { TVehicle } from '../../types';
+import { Field } from '../Field';
+import React from 'react';
 
+type TVehicleForm = {
+  vehicle?: TVehicle,
+  vNo?: number,
+  saveVehicle: (v: TVehicle, vNo?: number) => void
+}
 
-const VehicleForm = () => {
-  // TODO: make this a modal, or only have it show up when you add a new person
-
-  const { register, handleSubmit, reset, formState } = useForm<TVehicle>();
+const VehicleForm = ({ vehicle, vNo, saveVehicle }: TVehicleForm) => {
+  const { register, handleSubmit, reset, formState } = useForm<TVehicle>({ defaultValues: vehicle });
   const { errors } = formState;
 
   // Create and save a new vehicle
-  const handleAddVehicle = (data: TVehicle) => {
-    const requestOpts = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }
-    fetch('/api/vehicles', requestOpts).then(resp => resp.json()).then(data => console.log(data))
-    reset();
+  const handleAddVehicle = (vehicle: TVehicle) => {
+    saveVehicle(vehicle, vNo);
+    if (!vNo) reset();
   };
 
 
@@ -41,32 +41,23 @@ const VehicleForm = () => {
 
   return (
     <form onSubmit={handleSubmit(handleAddVehicle)} >
-      <h2>Add Vehicle</h2>
-      <div>
-        <label>VIN</label>
-        <input name="vin" {...register('vin', regOpts.vin)} />
-        {errors?.vin && errors.vin.message}
-      </div>
-      <div>
-        <label>Year</label>
-        <input type="number" name="year" {...register('year', regOpts.year)} />
-        {errors?.year && errors.year.message}
-      </div>
-      <div>
-        <label>Make</label>
-        <input name="make" {...register('make', regOpts.make)} />
-        {errors?.make && errors.make.message}
-      </div>
-      <div>
-        <label>Model</label>
-        <input name="model" {...register('model', regOpts.model)} />
-        {errors?.model && errors.model.message}
-      </div>
+      <Field label="VIN" error={errors?.vin}>
+        <input maxLength={17} {...register('vin', regOpts.vin)} />
+      </Field>
+      <Field label="Year" error={errors?.year}>
+        <input type="number" {...register('year', regOpts.year)} />
+      </Field>
+      <Field label="Make" error={errors?.make}>
+        <input maxLength={60} {...register('make', regOpts.make)} />
+      </Field>
+      <Field label="Model" error={errors?.model}>
+        <input maxLength={60} {...register('model', regOpts.model)} />
+      </Field>
       <button>Save Vehicle</button>
     </form >
   );
 
 
-}
+};
 
-export default VehicleForm
+export default VehicleForm;

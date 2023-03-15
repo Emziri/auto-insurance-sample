@@ -9,13 +9,15 @@ export type TAddress = {
 }
 
 //TODO: state as a specific set of 2 char options
-//TODO: relation as an enum
+
+export const RelationTypes = ["Spouse", "Parent", "Sibling", "Friend", "Other"] as const;
+export type TRelation = typeof RelationTypes[number];
 
 export type TPerson = {
   first: string,
   last: string,
   birth: Date,
-  relation: string,
+  relation: TRelation,
 };
 
 export type TVehicle = {

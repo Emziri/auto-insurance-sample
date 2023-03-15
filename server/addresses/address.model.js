@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 
+/** define Address model for db */
 function model(sequelize) {
   const attributes = {
     street: { type: DataTypes.STRING, allowNull: false },
@@ -10,7 +11,7 @@ function model(sequelize) {
   };
 
 
-  return sequelize.define('Address', attributes);
+  return sequelize.define('Address', attributes, { timestamps: false });
 }
 
 module.exports = model;

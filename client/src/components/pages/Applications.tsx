@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TApplication } from '../../types';
 import LinkButton from '../LinkButton';
 
@@ -8,8 +8,7 @@ const Applications = () => {
 
   useEffect(() => {
     fetch("/api/applications/").then((resp) => resp.json()).then((data) => setApplications(data));
-  }, [])
-
+  }, []);
 
 
   return (
@@ -18,8 +17,9 @@ const Applications = () => {
       <ul>
         {applications.map((application) => <li key={application.id}><LinkButton to={`/applications/${application.id}`}>Application {application.id}</LinkButton></li>)}
       </ul>
+      <LinkButton to={'/apply'}>New Application</LinkButton>
     </div>
-  )
-}
+  );
+};
 
 export default Applications;

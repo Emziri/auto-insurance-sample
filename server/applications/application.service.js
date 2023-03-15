@@ -14,12 +14,10 @@ const getApplication = async (id) => {
       {
         model: db.Address,
         as: "address",
-        attributes: ["street", "street2", "city", "state", "zip"]
       },
       {
         model: db.Vehicle,
         as: "vehicles",
-        attributes: ["vin", "year", "make", "model"],
         through: {
           attributes: [],
         },
@@ -27,7 +25,6 @@ const getApplication = async (id) => {
       {
         model: db.Person,
         as: "people",
-        attributes: ["first", "last", "birth"],
         through: {
           attributes: [],
         },

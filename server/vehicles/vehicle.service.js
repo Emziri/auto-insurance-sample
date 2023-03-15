@@ -1,19 +1,22 @@
 const db = require('../db');
 
+/** get list of all vehicles */
 const getAll = async () => {
   return await db.Vehicle.findAll();
 };
 
+/** get vehicle by id
+ *  @param {number} id
+ */
 const getVehicle = async (id) => {
   const vehicle = await db.Vehicle.findByPk(id);
   if (!vehicle) throw 'Vehicle not found';
   return vehicle;
 };
 
-const getById = async (id) => {
-  return await getVehicle(id);
-};
-
+/** get list of vehicles by list of ids
+ *  @param {number[]} ids 
+ */
 const getByIds = async (ids) => {
   const vehicles = await db.Vehicle.findAll({
     where: {
@@ -24,6 +27,12 @@ const getByIds = async (ids) => {
   return vehicles;
 };
 
+//TODO params types typescript
+// TODO returns types
+
+/** get vehicle if it exists in db, else create one
+ * @param vParams
+ */
 const getOrCreate = async (vParams) => {
   let vehicle = await db.Vehicle.findOne({ where: { ...vParams } });
   if (vehicle) {
@@ -35,6 +44,18 @@ const getOrCreate = async (vParams) => {
   return vehicle
 };
 
+/** create vehicle
+ * @params vParams
+ */
+const create = async (vParams) => {
+  vehicle = new db.Vehicle(vParams);
+  await vehicle.save();
+  return vehicle
+};
+
+/** delete vehicle by id 
+ * @params {number} id
+*/
 const _delete = async (id) => {
   const vehicle = await getVehicle(id);
   await vehicle.destroy();
@@ -43,8 +64,9 @@ const _delete = async (id) => {
 
 module.exports = {
   getAll,
-  getById,
   getByIds,
+  getById: getVehicle,
+  create,
   getOrCreate,
   delete: _delete
 };

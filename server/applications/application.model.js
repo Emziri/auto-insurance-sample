@@ -8,7 +8,7 @@ function model(sequelize) {
   };
 
 
-  return sequelize.define('Application', attributes);
+  return sequelize.define('Application', attributes, { timestamps: false });
 }
 
 module.exports = model;

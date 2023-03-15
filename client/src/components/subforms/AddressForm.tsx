@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { TAddress } from '../../types';
 import { Field } from '../Field';
+import React from 'react';
 
 
 const AddressForm = ({ address, saveAddress }: { address?: TAddress, saveAddress: (a: TAddress) => void }) => {
@@ -27,31 +28,29 @@ const AddressForm = ({ address, saveAddress }: { address?: TAddress, saveAddress
   };
 
   // TODO: make state a select
-  // TODO: limiting input lengths
 
   return (
     <form onSubmit={handleSubmit(handleSave)}>
-      <h2>Address</h2>
       <Field label="Street Addess" error={errors?.street}>
-        <input name="street" {...register('street', regOpts.street)} />
+        <input maxLength={250} {...register('street', regOpts.street)} />
       </Field>
       <Field label="Suite/Apt (Optional)" error={errors?.street2}>
-        <input name="street2" {...register('street2')} />
+        <input maxLength={250} {...register('street2')} />
       </Field>
       <Field label="City" error={errors?.city}>
-        <input name="city" {...register('city', regOpts.city)} />
+        <input maxLength={30} {...register('city', regOpts.city)} />
       </Field>
       <Field label="State" error={errors?.state}>
-        <input name="state" {...register('state', regOpts.state)} />
+        <input maxLength={30} {...register('state', regOpts.state)} />
       </Field>
       <Field label="ZIP Code" error={errors?.zip}>
-        <input name="zip" {...register('zip', regOpts.zip)} />
+        <input maxLength={11} {...register('zip', regOpts.zip)} />
       </Field>
       <button>Save Address</button>
     </form >
   );
 
 
-}
+};
 
-export default AddressForm
+export default AddressForm;

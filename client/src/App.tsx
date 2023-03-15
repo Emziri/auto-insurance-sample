@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import './styles/App.css';
 import Applications from './components/pages/Applications';
 import { Route, Routes, Navigate } from 'react-router-dom';
@@ -12,6 +12,6 @@ const App = () => {
       <Route path="/" element={<Navigate to="/applications" />} />
       <Route path="/applications" element={<Applications />} />
     </Routes>);
-}
+};
 
 export default App;

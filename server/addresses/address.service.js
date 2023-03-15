@@ -25,7 +25,7 @@ const getOrCreate = async (aParams) => {
   address = new db.Address(aParams);
   await address.save();
   return address;
-}
+};
 
 const _delete = async (id) => {
   const address = await getAddress(id);

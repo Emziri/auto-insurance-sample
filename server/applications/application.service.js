@@ -46,26 +46,26 @@ const getById = async (id) => {
 const create = async (aParams) => {
 
   //address
-  const address = aParams.address
+  const address = aParams.address;
   if (address) {
     const addr = await getOrCreateAddress(address);
     aParams.addressId = addr.dataValues.id;
   } else if (aParams.addressId) {
     const addr = await db.Address.findOne({ where: { id: aParams.addressId } });
-    if (!addr) throw "passed address id does not exist"
+    if (!addr) throw "passed address id does not exist";
   }
 
   const application = new db.Application(aParams);
   await application.save();
 
   //create any new vehicles and set vehicle relations
-  const vehicles = aParams.vehicles
+  const vehicles = aParams.vehicles;
   if (vehicles?.length > 0) {
     await setVehicles(application, vehicles);
   }
 
   //create any new people and set people relations
-  const people = aParams.people
+  const people = aParams.people;
   if (people?.length > 0) {
     await setPeople(application, people);
   }
@@ -77,23 +77,23 @@ const update = async (id, aParams) => {
   const application = await getApplication(id);
 
   //address details
-  const address = aParams.address
+  const address = aParams.address;
   if (address) {
     const addr = await getOrCreateAddress(address);
     aParams.addressId = addr.dataValues.id;
   } else if (aParams.addressId) {
     const addr = await db.Address.findOne({ where: { id: aParams.addressId } });
-    if (!addr) throw "passed address id does not exist"
+    if (!addr) throw "passed address id does not exist";
   }
 
   //create any new vehicles and set vehicle relations
-  const vehicles = aParams.vehicles
+  const vehicles = aParams.vehicles;
   if (vehicles?.length > 0) {
     await setVehicles(application, vehicles);
   }
 
   //create any new people and set people relations
-  const people = aParams.people
+  const people = aParams.people;
   if (people?.length > 0) {
     await setPeople(application, people);
   }
@@ -111,7 +111,7 @@ const setVehicles = async (application, vehicles) => {
   vehicles = await Promise.all(vehicles.map(async (vehicle) => await getOrCreateVehicle(vehicle)));
   if (!vehicles) throw "ERROR -- could not retrieve given vehicles";
   application.setVehicles(vehicles);
-}
+};
 
 // set people - applications relationships
 const setPeople = async (application, people) => {
@@ -120,14 +120,14 @@ const setPeople = async (application, people) => {
   people = await Promise.all(people.map(async (person) => await getOrCreatePerson(person)));
   if (!people) throw "ERROR -- could not retrieve given people";
   application.setPeople(people);
-}
+};
 
 const validate = async (id) => {
   const application = await getApplication(id);
-  const errors = []
+  const errors = [];
   if (!application) errors.push("Error: Application doesn't exist");
 
-  const appData = { ...application.dataValues }
+  const appData = { ...application.dataValues };
 
   //client info
   if (!appData.first || !appData.last || !appData.birth) {
@@ -154,7 +154,7 @@ const validate = async (id) => {
   //additional people are not mandatory for quote
   if (errors.length) throw errors;
   return { message: `Quote: $${Math.floor(Math.random() * (5000 - 500) + 500)}.00y` };
-}
+};
 
 const _delete = async (id) => {
   const application = await getApplication(id);

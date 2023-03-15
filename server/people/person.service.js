@@ -30,7 +30,7 @@ const create = async (pParams) => {
 };
 
 const getOrCreate = async (pParams) => {
-  let person = await db.Person.findOne({ where: { ...pParams } })
+  let person = await db.Person.findOne({ where: { ...pParams } });
   if (person) {
     return person;
   }
@@ -38,7 +38,7 @@ const getOrCreate = async (pParams) => {
   person = new db.Person(pParams);
   await person.save();
   return person;
-}
+};
 
 const _delete = async (id) => {
   const person = await getPerson(id);

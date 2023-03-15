@@ -30,13 +30,13 @@ const getOrCreate = async (vParams) => {
 
   vehicle = new db.Vehicle(vParams);
   await vehicle.save();
-  return vehicle
+  return vehicle;
 };
 
 const create = async (vParams) => {
-  vehicle = new db.Vehicle(vParams);
+  const vehicle = new db.Vehicle(vParams);
   await vehicle.save();
-  return vehicle
+  return vehicle;
 };
 
 const _delete = async (id) => {
